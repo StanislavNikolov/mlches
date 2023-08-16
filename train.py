@@ -8,13 +8,13 @@ class MLP(nn.Module):
   def __init__(self):
     super().__init__()
     self.layers = nn.Sequential(
-      nn.Linear(64 * 6 + 1, 512),
+      nn.Linear(64 * 6 + 1, 48),
       nn.ReLU(),
-      nn.Linear(512, 128),
+      nn.Linear(48, 24),
       nn.ReLU(),
-      nn.Linear(128, 32),
+      nn.Linear(24, 16),
       nn.ReLU(),
-      nn.Linear(32, 8),
+      nn.Linear(16, 8),
       nn.ReLU(),
       nn.Linear(8, 1),
       # nn.Sigmoid()
@@ -65,7 +65,7 @@ def val():
         print(preds)
 
 
-for epoch in range(0, 10):
+for epoch in range(0, 50):
     print(f"====== starting epoch {epoch}")
     cnt = 0
     loss_sum = 0
@@ -83,7 +83,7 @@ for epoch in range(0, 10):
 
         loss_sum += loss.item()
         cnt += 1
-        if cnt == 200:
+        if cnt == 1000:
             now = time.time()
             ns_per_board = (now - last_print) / (batch_size*cnt) * 1e9
             last_print = now
