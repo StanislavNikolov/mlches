@@ -1,12 +1,11 @@
 import numpy as np
 from tqdm import tqdm
-import pickle
 from pathlib import Path
 
 def parse_board(board: str):
     squares = np.zeros(64 * 6)
     char2sqaure = {
-        # 'e': np.array([ 0, 0, 0, 0, 0, 0]), #    empty
+        #        offset=0  1  2  3  4  5
         'K': np.array([+1, 0, 0, 0, 0, 0]), #  1 white king
         'Q': np.array([ 0,+1, 0, 0, 0, 0]), #  2 white queen
         'R': np.array([ 0, 0,+1, 0, 0, 0]), #  3 white rook
@@ -30,7 +29,7 @@ def parse_board(board: str):
             continue
         squares[idx*6:(idx+1)*6] = char2sqaure[c]
         idx += 1
-    
+
     return squares
 
 
@@ -75,7 +74,7 @@ def get_data(limit=None):
             s, turn = parse_fen(fen)
             squares[idx] = s
             turns[idx] = turn
-        
+
         evals.flush()
         squares.flush()
         turns.flush()
